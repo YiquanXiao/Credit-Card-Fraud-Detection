@@ -135,7 +135,7 @@ params_rf = {'class_weight': ['balanced', 'balanced_subsample'],
 rf_base = RandomForestClassifier(random_state=5)
 
 # Combine the parameter sets with the defined model
-cv_rf = GridSearchCV(estimator=rf_base, param_grid=params_rf, cv=5, scoring='recall', n_jobs=-1)
+cv_rf = GridSearchCV(estimator=rf_base, param_grid=params_rf, cv=5, scoring='accuracy', n_jobs=-1)
 
 # Fit the model to our training data and obtain best parameters
 cv_rf.fit(X_resampled_train,Y_resampled_train)
@@ -160,13 +160,16 @@ print("******************************")
 
 
 # Define the parameter sets to test
-params_ann = {'hidden_layer_sizes': [(50, 50), (100,)]}
+params_ann = {'hidden_layer_sizes': [(100,), (100, 100), (1000, 10)],
+              'activation': ['logistic', 'relu'],
+              'solver': ['adam', 'sgd']
+              }
 
 # Define the model as ANN
 ann_base = MLPClassifier(random_state=0)
 
 # Combine the parameter sets with the defined model
-cv_ann = GridSearchCV(estimator=ann_base, param_grid=params_ann, cv=5, scoring='recall', n_jobs=-1)
+cv_ann = GridSearchCV(estimator=ann_base, param_grid=params_ann, cv=5, scoring='accuracy', n_jobs=-1)
 
 # Fit the model to our training data and obtain best parameters
 cv_ann.fit(X_resampled_train,Y_resampled_train)
@@ -203,7 +206,10 @@ print("******************************")
 
 # ANN with Best params
 ann = MLPClassifier(random_state=0, 
-                    hidden_layer_sizes=cv_ann.best_params_['hidden_layer_sizes'])
+                    hidden_layer_sizes=cv_ann.best_params_['hidden_layer_sizes'],
+                    activation=cv_ann.best_params_['activation'],
+                    solver=cv_ann.best_params_['solver'],
+                    )
 ann.fit(X_resampled_train,Y_resampled_train)
 # predictions
 ann_predicted = ann.predict(X_resampled_test)
