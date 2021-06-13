@@ -137,7 +137,7 @@ params_rf = {'class_weight': ['balanced', 'balanced_subsample'],
 rf_base = RandomForestClassifier(random_state=5)
 
 # Combine the parameter sets with the defined model
-cv_rf = GridSearchCV(estimator=rf_base, param_grid=params_rf, cv=5, scoring='f1', n_jobs=-1)
+cv_rf = GridSearchCV(estimator=rf_base, param_grid=params_rf, cv=5, scoring='f1')
 
 # Fit the model to our training data and obtain best parameters
 cv_rf.fit(X_resampled_train, Y_resampled_train)
@@ -167,7 +167,7 @@ params_ann = {'hidden_layer_sizes': [(100,), (100, 100), (200, 100)],
 ann_base = MLPClassifier(random_state=0)
 
 # Combine the parameter sets with the defined model
-cv_ann = GridSearchCV(estimator=ann_base, param_grid=params_ann, cv=5, scoring='f1', n_jobs=-1)
+cv_ann = GridSearchCV(estimator=ann_base, param_grid=params_ann, cv=5, scoring='f1')
 
 # Fit the model to our training data and obtain best parameters
 cv_ann.fit(X_resampled_train, Y_resampled_train)
