@@ -126,15 +126,18 @@ print("Find Parameters for Random Forest...")
 
 
 # Define the parameter sets to test
-params_rf = {'class_weight': ['balanced', 'balanced_subsample'],
-             'n_estimators': [1, 10, 100],
-             'max_features': ['auto', 'log2'],
-             'max_depth': [4, 8, 10, 12, None],
-             'criterion': ['gini', 'entropy']
+# params_rf = {'class_weight': ['balanced', 'balanced_subsample'],
+#              'n_estimators': [1, 10, 100],
+#              'max_features': ['auto', 'log2'],
+#              'max_depth': [4, 8, 10, 12, None],
+#              'criterion': ['gini', 'entropy']
+#              }
+
+params_rf = {'class_weight': ['balanced', 'balanced_subsample']
              }
 
 # Define the model to use
-rf_base = RandomForestClassifier(random_state=5)
+rf_base = RandomForestClassifier(random_state=0)
 
 # Combine the parameter sets with the defined model
 cv_rf = GridSearchCV(estimator=rf_base, param_grid=params_rf, cv=5, scoring='f1')
@@ -182,12 +185,14 @@ print("******************************")
 
 
 # Random Forest with Best Parameters
+# rf = RandomForestClassifier(class_weight=cv_rf.best_params_['class_weight'],
+#                             criterion=cv_rf.best_params_['criterion'],
+#                             max_depth=cv_rf.best_params_['max_depth'],
+#                             max_features=cv_rf.best_params_['max_features'],
+#                             n_estimators=cv_rf.best_params_['n_estimators'],
+#                             random_state=5)
 rf = RandomForestClassifier(class_weight=cv_rf.best_params_['class_weight'],
-                            criterion=cv_rf.best_params_['criterion'],
-                            max_depth=cv_rf.best_params_['max_depth'],
-                            max_features=cv_rf.best_params_['max_features'],
-                            n_estimators=cv_rf.best_params_['n_estimators'],
-                            random_state=5)
+                            random_state=0)
 rf.fit(X_resampled_train, Y_resampled_train)
 # predictions
 rf_predicted = rf.predict(X_resampled_test)
