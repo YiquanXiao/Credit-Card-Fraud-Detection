@@ -1,0 +1,25 @@
+/home/xiao/anaconda3/envs/ccfd/lib/python3.8/site-packages/sklearn/neural_network/_multilayer_perceptron.py:614: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/home/xiao/anaconda3/envs/ccfd/lib/python3.8/site-packages/sklearn/neural_network/_multilayer_perceptron.py:614: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/home/xiao/anaconda3/envs/ccfd/lib/python3.8/site-packages/sklearn/neural_network/_multilayer_perceptron.py:614: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/home/xiao/anaconda3/envs/ccfd/lib/python3.8/site-packages/sklearn/neural_network/_multilayer_perceptron.py:614: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/home/xiao/anaconda3/envs/ccfd/lib/python3.8/site-packages/sklearn/neural_network/_multilayer_perceptron.py:614: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/home/xiao/anaconda3/envs/ccfd/lib/python3.8/site-packages/sklearn/neural_network/_multilayer_perceptron.py:614: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+X shape: (284807, 29)
+Y shape: (284807,)
+Best hidden layer: (100, 100)
+Best activation: relu
+Best solver: sgd
+Best learning_rate: constant
+Best learning_rate_init: 0.1
+Corresponding Recall: 1.0
+Corresponding Accuracy: 0.0021534824385847874
+Confusion matrix:
+ [[   37 85259]
+ [    0   147]]
+Confusion matrix, without normalization
