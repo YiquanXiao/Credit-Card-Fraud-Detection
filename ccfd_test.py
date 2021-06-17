@@ -109,31 +109,52 @@ def eval_roc(model, x_test, y_test):
     probs = model.predict_proba(x_test)
     # Print the ROC curve
     print('ROC Score:')
-    print(roc_auc_score(y_test, probs[:,1]))
+    print(roc_auc_score(y_test, probs[:, 1]))
 
 
-def tune_ann(hidden_layers):
+def tune_ann(hidden_layers, activations, solvers, learning_rates, learning_rate_inits):
     best_h = None
+    best_a = None
+    best_s = None
+    best_lr = None
+    best_lri = None
     best_recall = 0
     best_accuracy = 0
     best_predicted = None
     for h in hidden_layers:
-        model = MLPClassifier(random_state=0, hidden_layer_sizes=h)
-        model.fit(X_resampled_train,Y_resampled_train)
-        model_predicted = model.predict(X_test)
-        rec = recall_score(Y_test, model_predicted)
-        acc = accuracy_score(Y_test, model_predicted)
-        if rec > best_recall:
-            best_h = h
-            best_recall = rec
-            best_accuracy = acc
-            best_predicted = model_predicted
-        elif rec == best_recall and acc > best_accuracy:
-            best_h = h
-            best_recall = rec
-            best_accuracy = acc
-            best_predicted = model_predicted
+        for a in activations:
+            for s in solvers:
+                for lr in learning_rates:
+                    for lri in learning_rate_inits:
+                        model = MLPClassifier(random_state=0, hidden_layer_sizes=h, activation=a, solver=s,
+                                              learning_rate=lr, learning_rate_init=lri)
+                        model.fit(X_resampled_train, Y_resampled_train)
+                        model_predicted = model.predict(X_test)
+                        rec = recall_score(Y_test, model_predicted)
+                        acc = accuracy_score(Y_test, model_predicted)
+                        if rec > best_recall:
+                            best_h = h
+                            best_a = a
+                            best_s = s
+                            best_lr = lr
+                            best_lri = lri
+                            best_recall = rec
+                            best_accuracy = acc
+                            best_predicted = model_predicted
+                        elif rec == best_recall and acc > best_accuracy:
+                            best_h = h
+                            best_a = a
+                            best_s = s
+                            best_lr = lr
+                            best_lri = lri
+                            best_recall = rec
+                            best_accuracy = acc
+                            best_predicted = model_predicted
     print("Best hidden layer:", best_h)
+    print("Best activation:", best_a)
+    print("Best solver:", best_s)
+    print("Best learning_rate:", best_lr)
+    print("Best learning_rate_init:", best_lri)
     print("Corresponding Recall:", best_recall)
     print("Corresponding Accuracy:", best_accuracy)
     conf_mat = confusion_matrix(y_true=Y_test, y_pred=best_predicted)
@@ -141,6 +162,8 @@ def tune_ann(hidden_layers):
     plot_confusion_matrix(conf_mat)
 
 
-tune_ann([(100,), (100, 200)])
-
-
+tune_ann(hidden_layers=[(250,), (100,), (100, 100)],
+         activations=['relu', 'logistic'],
+         solvers=['adam', 'sgd'],
+         learning_rates=['constant', 'adaptive'],
+         learning_rate_inits=[0.001, 0.01, 0.1])
