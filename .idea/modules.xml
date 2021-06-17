@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$USER_HOME$/PycharmProjects/CS446HW2/.idea/CS446HW2.iml" filepath="$USER_HOME$/PycharmProjects/CS446HW2/.idea/CS446HW2.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Credit-Card-Fraud-Detection.iml" filepath="$PROJECT_DIR$/.idea/Credit-Card-Fraud-Detection.iml" />
     </modules>
   </component>
